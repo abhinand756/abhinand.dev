@@ -364,6 +364,63 @@ function SectionTitle({ title }: { title: string }) {
   );
 }
 
+function EducationCard({ item, i }: { item: TimelineItem; i: number }) {
+  const [ref, inView] = useReveal(0.2);
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: -32 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ delay: i * 0.12, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      className="relative flex gap-5 pb-10 last:pb-0"
+    >
+      {/* Dot on the track */}
+      <motion.div
+        className="absolute left-[-14px] top-[6px] w-[10px] h-[10px] rounded-full flex-shrink-0 z-10"
+        style={{ background: item.accent, boxShadow: `0 0 10px ${item.accent}` }}
+        animate={inView ? { scale: [0, 1.3, 1] } : { scale: 0 }}
+        transition={{ delay: i * 0.12 + 0.2, duration: 0.45 }}
+      />
+
+      {/* Card */}
+      <motion.div
+        whileHover={{ y: -4, boxShadow: `0 0 28px ${item.accent}22` }}
+        className="flex-1 rounded-2xl px-5 py-5 relative overflow-hidden"
+        style={{
+          background: "rgba(26,165,193,0.04)",
+          border: `1px solid ${item.accent}28`,
+        }}
+      >
+        {/* Corner accents */}
+        <span className="absolute top-[5px] left-[5px] w-[5px] h-[5px] rounded-full opacity-50" style={{ background: item.accent }} />
+        <span className="absolute bottom-[5px] right-[5px] w-[5px] h-[5px] rounded-full opacity-50" style={{ background: "#0054ff" }} />
+
+        {/* Subtle glow sweep on hover */}
+        <div
+          className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+          style={{ background: `radial-gradient(ellipse at top left, ${item.accent}0e 0%, transparent 60%)` }}
+        />
+
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
+          <span
+            className="text-xs font-semibold px-2.5 py-0.5 rounded-full tracking-wide"
+            style={{ background: `${item.accent}18`, color: item.accent, border: `1px solid ${item.accent}30` }}
+          >
+            {item.year}
+          </span>
+          {item.grade && (
+            <span className="text-xs text-white/40 font-medium">{item.grade}</span>
+          )}
+        </div>
+
+        <h4 className="text-white/90 font-semibold text-base mt-2 mb-0.5">{item.title}</h4>
+        <p className="text-[#1aa5c1]/70 text-xs font-medium mb-2 tracking-wide">{item.institution}</p>
+        <p className="text-white/50 text-sm leading-relaxed">{item.desc}</p>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 function EducationSection() {
   return (
     <section className="w-full max-w-3xl mb-20">
@@ -372,63 +429,9 @@ function EducationSection() {
         {/* Vertical track line */}
         <div className="absolute left-[10px] top-3 bottom-3 w-[2px] bg-gradient-to-b from-[#1aa5c1] via-[#497fed] to-[#0054ff] opacity-30 rounded-full" />
 
-        {education.map((item, i) => {
-          const [ref, inView] = useReveal(0.2);
-          return (
-            <motion.div
-              key={item.title}
-              ref={ref}
-              initial={{ opacity: 0, x: -32 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: i * 0.12, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex gap-5 pb-10 last:pb-0"
-            >
-              {/* Dot on the track */}
-              <motion.div
-                className="absolute left-[-14px] top-[6px] w-[10px] h-[10px] rounded-full flex-shrink-0 z-10"
-                style={{ background: item.accent, boxShadow: `0 0 10px ${item.accent}` }}
-                animate={inView ? { scale: [0, 1.3, 1] } : { scale: 0 }}
-                transition={{ delay: i * 0.12 + 0.2, duration: 0.45 }}
-              />
-
-              {/* Card */}
-              <motion.div
-                whileHover={{ y: -4, boxShadow: `0 0 28px ${item.accent}22` }}
-                className="flex-1 rounded-2xl px-5 py-5 relative overflow-hidden"
-                style={{
-                  background: "rgba(26,165,193,0.04)",
-                  border: `1px solid ${item.accent}28`,
-                }}
-              >
-                {/* Corner accents */}
-                <span className="absolute top-[5px] left-[5px] w-[5px] h-[5px] rounded-full opacity-50" style={{ background: item.accent }} />
-                <span className="absolute bottom-[5px] right-[5px] w-[5px] h-[5px] rounded-full opacity-50" style={{ background: "#0054ff" }} />
-
-                {/* Subtle glow sweep on hover */}
-                <div
-                  className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-                  style={{ background: `radial-gradient(ellipse at top left, ${item.accent}0e 0%, transparent 60%)` }}
-                />
-
-                <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
-                  <span
-                    className="text-xs font-semibold px-2.5 py-0.5 rounded-full tracking-wide"
-                    style={{ background: `${item.accent}18`, color: item.accent, border: `1px solid ${item.accent}30` }}
-                  >
-                    {item.year}
-                  </span>
-                  {item.grade && (
-                    <span className="text-xs text-white/40 font-medium">{item.grade}</span>
-                  )}
-                </div>
-
-                <h4 className="text-white/90 font-semibold text-base mt-2 mb-0.5">{item.title}</h4>
-                <p className="text-[#1aa5c1]/70 text-xs font-medium mb-2 tracking-wide">{item.institution}</p>
-                <p className="text-white/50 text-sm leading-relaxed">{item.desc}</p>
-              </motion.div>
-            </motion.div>
-          );
-        })}
+        {education.map((item, i) => (
+          <EducationCard key={item.title} item={item} i={i} />
+        ))}
       </div>
     </section>
   );
@@ -477,61 +480,64 @@ function HobbiesSection() {
   );
 }
 
+function FavouriteCard({ cat, i }: { cat: FavouriteCategory; i: number }) {
+  const [ref, inView] = useReveal(0.1);
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 36 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: (i % 3) * 0.1, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -5, boxShadow: `0 0 32px ${cat.accent}18` }}
+      className="relative rounded-2xl px-5 py-5 flex flex-col gap-3 overflow-hidden"
+      style={{
+        background: "rgba(26,165,193,0.04)",
+        border: `1px solid ${cat.accent}22`,
+      }}
+    >
+      {/* Top corner dot */}
+      <span className="absolute top-[5px] left-[5px] w-[5px] h-[5px] rounded-full opacity-50" style={{ background: cat.accent }} />
+      <span className="absolute bottom-[5px] right-[5px] w-[5px] h-[5px] rounded-full opacity-50" style={{ background: "#0054ff" }} />
+
+      {/* Header */}
+      <div className="flex items-center gap-2">
+        <span className="text-xl">{cat.icon}</span>
+        <h4 className="text-sm font-bold tracking-wide uppercase" style={{ color: cat.accent }}>
+          {cat.label}
+        </h4>
+      </div>
+
+      {/* Items */}
+      <div className="flex flex-wrap gap-2">
+        {cat.items.map((item, j) => (
+          <motion.span
+            key={item}
+            initial={{ opacity: 0, scale: 0.75 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: (i % 3) * 0.1 + j * 0.06 + 0.2, duration: 0.35, ease: "backOut" }}
+            whileHover={{ scale: 1.08, borderColor: `${cat.accent}99` }}
+            className="text-xs px-2.5 py-1 rounded-full font-medium text-white/70"
+            style={{
+              background: `${cat.accent}10`,
+              border: `1px solid ${cat.accent}28`,
+            }}
+          >
+            {item}
+          </motion.span>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 function FavouritesSection() {
   return (
     <section className="w-full max-w-5xl mb-20">
       <SectionTitle title="Favourites" />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {favourites.map((cat, i) => {
-          const [ref, inView] = useReveal(0.1);
-          return (
-            <motion.div
-              key={cat.label}
-              ref={ref}
-              initial={{ opacity: 0, y: 36 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: (i % 3) * 0.1, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -5, boxShadow: `0 0 32px ${cat.accent}18` }}
-              className="relative rounded-2xl px-5 py-5 flex flex-col gap-3 overflow-hidden"
-              style={{
-                background: "rgba(26,165,193,0.04)",
-                border: `1px solid ${cat.accent}22`,
-              }}
-            >
-              {/* Top corner dot */}
-              <span className="absolute top-[5px] left-[5px] w-[5px] h-[5px] rounded-full opacity-50" style={{ background: cat.accent }} />
-              <span className="absolute bottom-[5px] right-[5px] w-[5px] h-[5px] rounded-full opacity-50" style={{ background: "#0054ff" }} />
-
-              {/* Header */}
-              <div className="flex items-center gap-2">
-                <span className="text-xl">{cat.icon}</span>
-                <h4 className="text-sm font-bold tracking-wide uppercase" style={{ color: cat.accent }}>
-                  {cat.label}
-                </h4>
-              </div>
-
-              {/* Items */}
-              <div className="flex flex-wrap gap-2">
-                {cat.items.map((item, j) => (
-                  <motion.span
-                    key={item}
-                    initial={{ opacity: 0, scale: 0.75 }}
-                    animate={inView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ delay: (i % 3) * 0.1 + j * 0.06 + 0.2, duration: 0.35, ease: "backOut" }}
-                    whileHover={{ scale: 1.08, borderColor: `${cat.accent}99` }}
-                    className="text-xs px-2.5 py-1 rounded-full font-medium text-white/70"
-                    style={{
-                      background: `${cat.accent}10`,
-                      border: `1px solid ${cat.accent}28`,
-                    }}
-                  >
-                    {item}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-          );
-        })}
+        {favourites.map((cat, i) => (
+          <FavouriteCard key={cat.label} cat={cat} i={i} />
+        ))}
       </div>
     </section>
   );
