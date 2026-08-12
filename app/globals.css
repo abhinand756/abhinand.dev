@@ -1,33 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+html {
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.hero-hidden {
+  opacity: 0;
+}
+
+.hero-visible {
+  opacity: 1;
+  transition: opacity 0.01s;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: #000;
+  color: #fff;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+#tsparticles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
+#hero,
+#about,
+#skills,
+#projects,
+#contact,
+#personal {
+  scroll-margin-top: 90px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #1aa5c1, #0054ff);
+  border-radius: 99px;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #262525 inset !important;
+  -webkit-text-fill-color: #fff !important;
+  transition: background-color 9999s ease-in-out 0s;
 }
