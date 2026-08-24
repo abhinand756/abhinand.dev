@@ -27,59 +27,91 @@ const allProjects: ProjectItem[] = [
   // ── Personal Projects ──
   {
     id: "pers-1",
-    title: "Personal Portfolio Website v2",
+    title: "E-Commerce Platform - HappyMart",
     category: "personal",
-    src: "/images/website-dev.webp",
-    desc: "Interactive 3D animated portfolio built with Next.js 14, Tailwind CSS, Framer Motion, and Custom Mouse Pointer FX.",
-    longDesc: "A state-of-the-art developer portfolio crafted to showcase skills, background, and work experience with rich visual aesthetics, custom cursor tracking, particle canvas backgrounds, and 3D card flips.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Canvas API"],
-    features: [
-      "3D Book flip cards with interactive perspective styling",
-      "Custom reactive cursor particle canvas with trailing glow",
-      "Fully responsive dark neon & glassmorphic layout design",
-      "SEO optimized with fast Next.js App Router performance"
+    src: "/images/services1.jpg",
+    desc: "A full-featured e-commerce platform inspired by Flipkart with authentication, product management, shopping cart, wishlist, order management, and secure checkout.",
+    longDesc:
+      "A modern full-stack e-commerce application built to replicate the experience of leading online marketplaces. The platform includes user authentication, product browsing, category filtering, shopping cart, wishlist, checkout flow, order tracking, admin product management, and responsive UI optimized for desktop and mobile devices.",
+    tags: [
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "JWT",
+      "Redux Toolkit",
+      "Tailwind CSS"
     ],
-    accent: "#1aa5c1",
+    features: [
+      "JWT authentication with secure login & registration",
+      "Dynamic product search, filtering, sorting & pagination",
+      "Shopping cart, wishlist & seamless checkout experience",
+      "Order history and user profile management",
+      "Admin dashboard for products, categories & orders",
+      "Responsive UI inspired by Flipkart with optimized performance"
+    ],
+    accent: "#2874F0",
   },
   {
     id: "pers-2",
-    title: "Cross-Platform Mobile Suite",
+    title: "Real-Time Chat Application",
     category: "personal",
-    src: "/images/mobile-app.webp",
-    desc: "Suite of mobile applications built using Flutter & React Native focusing on clean architecture and smooth gesture transitions.",
-    longDesc: "A collection of cross-platform utility applications exploring modular state management, custom UI kit components, and native device capabilities like camera, location, and storage.",
-    tags: ["Flutter", "Dart", "React Native", "Firebase", "SQLite"],
-    features: [
-      "Clean architecture separation of data, domain, and UI layers",
-      "Dark and Light dynamic theme switching capabilities",
-      "Local storage sync with SQLite & cloud backup via Firebase",
-      "Custom UI component library with modular widgets"
+    src: "/images/services2.jpg",
+    desc: "A Telegram-inspired real-time messaging application supporting instant chat, online presence, media sharing, and responsive conversations.",
+    longDesc:
+      "A modern real-time chat platform developed to deliver a smooth messaging experience similar to Telegram. The application features live messaging, user authentication, online/offline status indicators, media sharing, conversation management, and a responsive interface designed for desktop and mobile users.",
+    tags: [
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Socket.io",
+      "JWT",
+      "Tailwind CSS"
     ],
-    accent: "#497fed",
+    features: [
+      "Real-time messaging powered by Socket.io",
+      "Private one-to-one conversations",
+      "User authentication with secure JWT sessions",
+      "Online/offline presence indicators",
+      "Image and file sharing support",
+      "Responsive Telegram-inspired user interface"
+    ],
+    accent: "#229ED9",
   },
   {
     id: "pers-3",
-    title: "MERN Stack Web Apps",
+    title: "Movie & Music Discovery Platform",
     category: "personal",
-    src: "/images/services2.jpg",
-    desc: "Full-stack web applications featuring complete CRUD operations, authentication, database modeling, and real-time updates.",
-    longDesc: "A series of full-stack MERN applications designed to solve real-world problems including inventory management, blogging platforms, and task management systems.",
-    tags: ["MongoDB", "Express.js", "React.js", "Node.js", "JWT"],
-    features: [
-      "RESTful API design with comprehensive validation & middleware",
-      "JWT-based user session authentication and encrypted passwords",
-      "Mongoose schema design with dynamic indexing",
-      "Responsive React UI connected to custom Node API"
+    src: "/images/services3.jpg",
+    desc: "A modern entertainment platform for exploring trending movies, TV shows, and music with powerful search, filtering, and responsive browsing experience.",
+    longDesc:
+      "An entertainment discovery platform that allows users to browse popular movies, TV series, albums, artists, and trending content through a clean and intuitive interface. The application integrates external APIs to deliver real-time content, advanced filtering, detailed information pages, and an engaging browsing experience.",
+    tags: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "TMDB API",
+      "Spotify API",
+      "REST API"
     ],
-    accent: "#0054ff",
+    features: [
+      "Browse trending movies, TV shows & music",
+      "Advanced search with genre and category filtering",
+      "Detailed information pages with ratings & metadata",
+      "Responsive UI optimized for desktop, tablet & mobile",
+      "API integration for real-time entertainment content",
+      "Modern card-based interface with smooth animations"
+    ],
+    accent: "#E50914",
   },
-  
+
   // ── Company / Featured Projects ──
   {
     id: "comp-1",
     title: "Enterprise Web Portal",
     category: "company",
-    company: "Coddle Technologies",
+    company: "Featured Project",
     role: "Front-End Developer",
     src: "/images/services2.jpg",
     desc: "Architected modern web platform with dynamic dashboard UI, real-time analytics, and smooth role-based controls using Next.js & React.",
@@ -97,7 +129,7 @@ const allProjects: ProjectItem[] = [
     id: "comp-2",
     title: "Mobile E-Commerce App",
     category: "company",
-    company: "Coddle Technologies",
+    company: "Featured Project",
     role: "Cross-Platform Developer",
     src: "/images/services3.jpg",
     desc: "Built high-performance mobile checkout and shopping experience featuring push notifications, offline cache, and fluid micro-animations.",
@@ -115,7 +147,7 @@ const allProjects: ProjectItem[] = [
     id: "comp-3",
     title: "Client SaaS Application",
     category: "company",
-    company: "Coddle Technologies",
+    company: "Featured Project",
     role: "Full Stack Contributor",
     src: "/images/services1.jpg",
     desc: "Developed responsive web interface and backend API modules, boosting user onboarding speeds and application responsiveness by 35%.",
@@ -143,9 +175,14 @@ export default function ProjectsDetail() {
   });
 
   return (
-    <div className="min-h-screen py-16 md:py-24 px-4 max-w-6xl mx-auto flex flex-col items-center">
-      {/* ── Back Navigation ── */}
-      <div className="w-full flex items-center justify-between mb-8">
+    <div className="min-h-screen max-md:pt-20 py-16 md:py-24 px-4 max-w-6xl mx-auto flex flex-col items-center">
+      {/* ── Top Bar ── */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="w-full flex items-center justify-between mb-8"
+      >
         <Link href="/#projects">
           <motion.div
             whileHover={{ x: -4 }}
@@ -159,14 +196,13 @@ export default function ProjectsDetail() {
         <span className="text-xs font-medium text-white/40 tracking-wider uppercase">
           Project Showcase
         </span>
-      </div>
+      </motion.div>
 
       {/* ── Page Header ── */}
       <motion.div
-        ref={headerRef}
-        initial={{ opacity: 0, y: 36 }}
-        animate={headerInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         className="flex flex-col items-center text-center mb-12"
       >
         <span className="text-xs font-semibold tracking-[0.2em] uppercase text-[#1aa5c1]/70 mb-3 flex items-center gap-1.5">
@@ -178,7 +214,12 @@ export default function ProjectsDetail() {
       </motion.div>
 
       {/* ── Category Switcher Tabs ── */}
-      <div className="flex items-center justify-center gap-2 p-1.5 rounded-full bg-[#0a101c] border border-[#1aa5c1]/25 mb-14 shadow-lg">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.92, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        className="flex items-center justify-center gap-2 p-1.5 rounded-full bg-[#0a101c] border border-[#1aa5c1]/25 mb-14 shadow-lg"
+      >
         {[
           { id: "all", label: "All Projects", icon: "✦" },
           { id: "personal", label: "Personal Projects", icon: "💻" },
@@ -214,29 +255,35 @@ export default function ProjectsDetail() {
             </button>
           );
         })}
-      </div>
+      </motion.div>
 
       {/* ── Main Detail Showcase Grid ── */}
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Project Selector List */}
-        <div className="lg:col-span-5 flex flex-col gap-4">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="lg:col-span-5 flex flex-col gap-4"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-white/40 px-1 flex items-center gap-2">
             <Layers size={14} /> Select a project to view details
           </span>
 
           <div className="flex flex-col gap-3">
-            <AnimatePresence mode="wait">
-              {filteredProjects.map((p) => {
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((p, idx) => {
                 const isSelected = selectedProject.id === p.id;
                 return (
                   <motion.div
                     key={p.id}
                     layout
-                    initial={{ opacity: 0, y: 15 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.45, delay: idx * 0.06 }}
                     onClick={() => setSelectedProject(p)}
-                    whileHover={{ x: 4 }}
+                    whileHover={{ x: 6 }}
                     className="relative flex items-center gap-4 p-4 rounded-2xl cursor-pointer transition-all duration-300 overflow-hidden"
                     style={{
                       background: isSelected ? "rgba(26,165,193,0.12)" : "rgba(10,16,28,0.7)",
@@ -280,10 +327,15 @@ export default function ProjectsDetail() {
               })}
             </AnimatePresence>
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Column: Active Project Details Panel */}
-        <div className="lg:col-span-7">
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="lg:col-span-7"
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={selectedProject.id}
@@ -399,7 +451,7 @@ export default function ProjectsDetail() {
               </div>
             </motion.div>
           </AnimatePresence>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

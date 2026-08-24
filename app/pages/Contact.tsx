@@ -166,7 +166,7 @@ export default function Contact() {
     if (!valid) { setLoading(false); return; }
 
     const formData = new FormData(event.target as HTMLFormElement);
-    formData.append("access_key", "0aadd452-aba7-44d8-ae1b-131663dc0d36");
+    formData.append("access_key", process.env.NEXT_PUBLIC_ACCESS_KEY || "");
     const json = JSON.stringify(Object.fromEntries(formData));
 
     const response = await fetch("https://api.web3forms.com/submit", {
@@ -187,7 +187,7 @@ export default function Contact() {
   return (
     <div
       id="contact"
-      className="min-h-screen flex flex-col justify-center items-center py-12 md:py-24 px-4"
+      className="min-h-screen flex flex-col justify-center items-center py-12 md:py-24 px-4 overflow-hidden w-full max-w-full"
     >
       {/* Title */}
       <motion.div
@@ -211,10 +211,10 @@ export default function Contact() {
         {/* ── Form card ── */}
         <motion.div
           ref={formRef}
-          initial={{ opacity: 0, x: -40 }}
-          animate={formInView ? { opacity: 1, x: 0 } : {}}
+          initial={{ opacity: 0, y: 30 }}
+          animate={formInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full lg:w-[420px] px-6 py-7 rounded-2xl"
+          className="relative w-full max-w-full lg:w-[420px] px-6 py-7 rounded-2xl"
           style={{
             background: "rgba(26,165,193,0.04)",
             border: "1px solid rgba(26,165,193,0.18)",
@@ -278,10 +278,10 @@ export default function Contact() {
         {/* ── Info panel ── */}
         <motion.div
           ref={infoRef}
-          initial={{ opacity: 0, x: 40 }}
-          animate={infoInView ? { opacity: 1, x: 0 } : {}}
+          initial={{ opacity: 0, y: 30 }}
+          animate={infoInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full lg:w-[320px] px-6 py-7 rounded-2xl flex flex-col gap-8"
+          className="relative w-full max-w-full lg:w-[320px] px-6 py-7 rounded-2xl flex flex-col gap-8"
           style={{
             background: "rgba(26,165,193,0.04)",
             border: "1px solid rgba(26,165,193,0.18)",
