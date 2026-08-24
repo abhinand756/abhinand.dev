@@ -9,7 +9,7 @@ import Contact from "./pages/Contact";
 
 export default function Home() {
   return (
-    <div className="w-full max-w-full overflow-x-hidden relative">
+    <div>
       <ParticleBackground />
       <Header />
       <Hero />
