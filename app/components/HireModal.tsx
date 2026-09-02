@@ -34,12 +34,14 @@ const itemVariants = {
 
 function Field({
     label,
+    name = "field",
     type = "text",
     value,
     onChange,
     error,
 }: {
     label: string;
+    name?: string;
     type?: string;
     value: string;
     onChange: (v: string) => void;
@@ -47,11 +49,13 @@ function Field({
 }) {
     const [focused, setFocused] = useState(false);
     const lifted = focused || value.length > 0;
+    const fieldId = `hire-field-${label.toLowerCase().replace(/\s+/g, "-")}`;
 
     return (
         <motion.div variants={itemVariants} className="w-full flex flex-col">
             <div className="relative w-full">
                 <motion.label
+                    htmlFor={fieldId}
                     className="absolute left-3 pointer-events-none text-white/40 origin-left z-10"
                     animate={{
                         top: lifted ? "6px" : "50%",
@@ -64,12 +68,13 @@ function Field({
                     {label}
                 </motion.label>
                 <input
+                    id={fieldId}
                     type={type}
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
                     onFocus={() => setFocused(true)}
                     onBlur={() => setFocused(false)}
-                    className="w-full pt-6 pb-2 px-3 bg-transparent text-white text-sm outline-none rounded-xl"
+                    className="w-full pt-6 pb-2 px-3 bg-transparent text-white text-sm outline-none rounded-xl min-h-[44px]"
                     style={{
                         border: `1px solid ${error ? "rgba(248,113,113,0.7)" : focused ? "rgba(26,165,193,0.6)" : "rgba(255,255,255,0.1)"}`,
                         background: error ? "rgba(248,113,113,0.05)" : focused ? "rgba(26,165,193,0.04)" : "rgba(255,255,255,0.03)",
@@ -111,11 +116,13 @@ function Area({
 }) {
     const [focused, setFocused] = useState(false);
     const lifted = focused || value.length > 0;
+    const fieldId = `hire-area-${label.toLowerCase().replace(/\s+/g, "-")}`;
 
     return (
         <motion.div variants={itemVariants} className="w-full flex flex-col">
             <div className="relative w-full">
                 <motion.label
+                    htmlFor={fieldId}
                     className="absolute left-3 pointer-events-none text-white/40 origin-left z-10"
                     animate={{
                         top: lifted ? "6px" : "16px",
@@ -127,12 +134,13 @@ function Area({
                     {label}
                 </motion.label>
                 <textarea
+                    id={fieldId}
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
                     onFocus={() => setFocused(true)}
                     onBlur={() => setFocused(false)}
                     rows={3}
-                    className="w-full pt-7 pb-2 px-3 bg-transparent text-white text-sm outline-none rounded-xl resize-none"
+                    className="w-full pt-7 pb-2 px-3 bg-transparent text-white text-sm outline-none rounded-xl resize-none min-h-[44px]"
                     style={{
                         border: `1px solid ${error ? "rgba(248,113,113,0.7)" : focused ? "rgba(26,165,193,0.6)" : "rgba(255,255,255,0.1)"}`,
                         background: error ? "rgba(248,113,113,0.05)" : focused ? "rgba(26,165,193,0.04)" : "rgba(255,255,255,0.03)",
@@ -179,6 +187,7 @@ function Picker({
     const [open, setOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const lifted = open || value.length > 0;
+    const pickerId = `hire-picker-${label.toLowerCase().replace(/\s+/g, "-")}`;
 
     useEffect(() => {
         function handleClickOutside(e: MouseEvent) {
@@ -198,9 +207,11 @@ function Picker({
         <motion.div variants={itemVariants} className="w-full flex flex-col">
             <div ref={containerRef} className="relative w-full">
                 <button
+                    id={pickerId}
                     type="button"
                     onClick={() => setOpen((o) => !o)}
-                    className="w-full pt-6 pb-2 pl-3 pr-9 bg-transparent text-sm outline-none rounded-xl text-left cursor-pointer transition-all duration-250 flex items-center justify-between"
+                    aria-label={label}
+                    className="w-full pt-6 pb-2 pl-3 pr-9 bg-transparent text-sm outline-none rounded-xl text-left cursor-pointer transition-all duration-250 flex items-center justify-between min-h-[44px]"
                     style={{
                         border: `1px solid ${error ? "rgba(248,113,113,0.7)" : open ? "rgba(26,165,193,0.6)" : "rgba(255,255,255,0.1)"}`,
                         background: error ? "rgba(248,113,113,0.05)" : open ? "rgba(26,165,193,0.04)" : "rgba(255,255,255,0.03)",
