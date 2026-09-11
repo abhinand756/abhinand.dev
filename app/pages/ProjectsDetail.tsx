@@ -4,7 +4,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import { useState } from "react";
 import { ExternalLink, Layers, ArrowLeft, Sparkles, Code2, CheckCircle2 } from "lucide-react";
 
@@ -13,7 +12,6 @@ interface ProjectItem {
   title: string;
   category: "personal" | "company";
   company?: string;
-  role?: string;
   src: string;
   desc: string;
   longDesc: string;
@@ -39,7 +37,6 @@ const allProjects: ProjectItem[] = [
       "Express.js",
       "MongoDB",
       "JWT",
-      "Redux Toolkit",
       "Tailwind CSS"
     ],
     features: [
@@ -51,6 +48,7 @@ const allProjects: ProjectItem[] = [
       "Responsive UI inspired by Flipkart with optimized performance"
     ],
     accent: "#2874F0",
+    link: "https://happymartstore.vercel.app/",
   },
   {
     id: "pers-2",
@@ -78,6 +76,7 @@ const allProjects: ProjectItem[] = [
       "Responsive Telegram-inspired user interface"
     ],
     accent: "#229ED9",
+    link: "https://github.com/abhinand-ct205",
   },
   {
     id: "pers-3",
@@ -103,71 +102,96 @@ const allProjects: ProjectItem[] = [
       "API integration for real-time entertainment content",
       "Modern card-based interface with smooth animations"
     ],
-    accent: "#E50914",
+    accent: "#2874F0",
+    link: "https://github.com/abhinand-ct205",
   },
 
   // ── Company / Featured Projects ──
   {
     id: "comp-1",
-    title: "Enterprise Web Portal",
+    title: "Mathrubhumi - Leading News Channel",
     category: "company",
     company: "Featured Project",
-    role: "Front-End Developer",
     src: "/images/services2.jpg",
-    desc: "Architected modern web platform with dynamic dashboard UI, real-time analytics, and smooth role-based controls using Next.js & React.",
-    longDesc: "Designed and engineered an enterprise-grade administrative web portal for real-time tracking, complex data visualization, and seamless user permission management. Improved page load speeds by 40% using SSR and optimized state management.",
-    tags: ["Next.js", "React.js", "Tailwind CSS", "TypeScript", "REST API", "Chart.js"],
+    desc: "Developed a modern, responsive news platform for Mathrubhumi with dynamic content sections, intuitive navigation, and a seamless reading experience across devices.",
+    longDesc: "Designed and developed a high-performance news web experience focused on delivering breaking news, articles, videos, and multimedia content through a clean and engaging interface. Implemented responsive layouts, reusable React components, optimized content rendering, and smooth interactions to provide a fast and accessible experience across desktop and mobile devices.",
+    tags: [
+      "Next.js",
+      "React.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST API",
+      "Responsive Design"
+    ],
     features: [
-      "Dynamic data analytics dashboards with responsive charts",
-      "Role-based access control and secure JWT authentication",
-      "Dark mode aesthetic UI with glassmorphism micro-interactions",
-      "Server-side rendering for lightning-fast page transitions"
+      "Dynamic news and article sections with API-driven content",
+      "Responsive layouts optimized for desktop, tablet, and mobile",
+      "Category-based news navigation and content discovery",
+      "Modern UI with smooth transitions and interactive elements",
+      "Optimized rendering and image loading for faster page performance"
     ],
     accent: "#1aa5c1",
+    link: "https://www.mathrubhumi.com/",
   },
   {
     id: "comp-2",
-    title: "Mobile E-Commerce App",
+    title: "Grihalakshmi - Weekly Magazine",
     category: "company",
     company: "Featured Project",
-    role: "Cross-Platform Developer",
-    src: "/images/services3.jpg",
-    desc: "Built high-performance mobile checkout and shopping experience featuring push notifications, offline cache, and fluid micro-animations.",
-    longDesc: "Developed a cross-platform mobile shopping application with high responsiveness and native performance. Built seamless checkout flows, real-time order tracking, and push notification integrations.",
-    tags: ["React Native", "Redux Toolkit", "Framer Motion", "Node.js", "Firebase"],
-    features: [
-      "Seamless 1-tap checkout flow with secure payment gateway integration",
-      "Real-time push notifications for order updates and offer alerts",
-      "Offline caching for fast product catalog browsing",
-      "Fluid 60fps micro-animations and gesture support"
+    src: "/images/services2.jpg",
+    desc: "Developed a modern digital magazine experience for Grihalakshmi, featuring engaging editorial content, intuitive navigation, rich media, and a responsive reading experience across devices.",
+    longDesc: "Designed and developed a visually engaging digital platform for Grihalakshmi Weekly Magazine, focused on delivering articles, stories, lifestyle content, and multimedia in an elegant and accessible interface. Built reusable components and responsive layouts to ensure a consistent reading experience across desktop, tablet, and mobile devices while optimizing content presentation and performance.",
+    tags: [
+      "Next.js",
+      "React.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST API",
+      "Responsive Design"
     ],
-    accent: "#497fed",
+    features: [
+      "Dynamic magazine articles and editorial content",
+      "Category-based navigation for easy content discovery",
+      "Responsive reading experience across all screen sizes",
+      "Rich media integration for images and multimedia content",
+      "Reusable and scalable React component architecture",
+      "Optimized page rendering and image loading for better performance"
+    ],
+    accent: "#1aa5c1",
+    link: "https://grihalakshmi.mathrubhumi.com/",
   },
   {
     id: "comp-3",
-    title: "Client SaaS Application",
+    title: "EdgeProp - Malaysia Property Platform",
     category: "company",
     company: "Featured Project",
-    role: "Full Stack Contributor",
-    src: "/images/services1.jpg",
-    desc: "Developed responsive web interface and backend API modules, boosting user onboarding speeds and application responsiveness by 35%.",
-    longDesc: "Contributed to both front-end user experience and back-end RESTful services for a high-traffic SaaS productivity suite. Automated onboarding workflows and created highly responsive dashboard modules.",
-    tags: ["React.js", "Node.js", "Express", "MongoDB", "CSS3", "Redux"],
-    features: [
-      "Automated user onboarding & step-by-step wizard flow",
-      "Scalable REST API endpoints built with Express & MongoDB",
-      "Interactive data grid tables with sorting, filtering, and export",
-      "Real-time state synchronization across tabs"
+    src: "/images/services2.jpg",
+    desc: "Worked as a Frontend developer in EdgeProp.my, a property platform for real-estate content.",
+    longDesc: "Contributed to the development of EdgeProp.my, a comprehensive property and real-estate platform serving buyers, renters, investors, and property professionals across Malaysia. Built responsive and reusable interfaces for property discovery, listing experiences, project information, search and filtering, and data-driven content while maintaining a seamless experience across desktop and mobile devices.",
+    tags: [
+      "Next.js",
+      "React.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Responsive Design"
     ],
-    accent: "#0054ff",
+    features: [
+      "Dynamic property listings with advanced search and filtering",
+      "Responsive property discovery experience across desktop and mobile",
+      "Interactive property details with pricing, location, and market information",
+      "New launch and project discovery interfaces",
+      "Data-driven property insights and transaction information",
+      "Reusable React components for scalable real-estate experiences",
+      "Optimized UI and content rendering for large-scale property data"
+    ],
+    accent: "#2874F0",
+    link: "https://www.edgeprop.my/"
   },
 ];
 
 export default function ProjectsDetail() {
   const [activeTab, setActiveTab] = useState<"all" | "company" | "personal">("all");
   const [selectedProject, setSelectedProject] = useState<ProjectItem>(allProjects[0]);
-
-  const [headerRef, headerInView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
   const filteredProjects = allProjects.filter((p) => {
     if (activeTab === "all") return true;
@@ -377,11 +401,6 @@ export default function ProjectsDetail() {
                   >
                     {selectedProject.category === "company" ? selectedProject.company : "Personal Portfolio"}
                   </span>
-                  {selectedProject.role && (
-                    <span className="text-xs text-white/80 font-medium px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/10">
-                      {selectedProject.role}
-                    </span>
-                  )}
                 </div>
               </div>
 
@@ -436,18 +455,39 @@ export default function ProjectsDetail() {
 
               {/* Action Link Button */}
               <div className="pt-2">
-                <motion.button
-                  whileHover={{ scale: 1.03, boxShadow: `0 0 25px ${selectedProject.accent}44` }}
-                  whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs md:text-sm font-semibold text-white cursor-pointer"
-                  style={{
-                    background: `linear-gradient(135deg, ${selectedProject.accent}33, #0054ff33)`,
-                    border: `1px solid ${selectedProject.accent}66`,
-                  }}
-                >
-                  <ExternalLink size={15} />
-                  <span>Explore Live Project</span>
-                </motion.button>
+                {selectedProject.link ? (
+                  <a
+                    href={selectedProject.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <motion.button
+                      whileHover={{ scale: 1.03, boxShadow: `0 0 25px ${selectedProject.accent}44` }}
+                      whileTap={{ scale: 0.97 }}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs md:text-sm font-semibold text-white cursor-pointer"
+                      style={{
+                        background: `linear-gradient(135deg, ${selectedProject.accent}33, #0054ff33)`,
+                        border: `1px solid ${selectedProject.accent}66`,
+                      }}
+                    >
+                      <ExternalLink size={15} />
+                      <span>Explore Live Project</span>
+                    </motion.button>
+                  </a>
+                ) : (
+                  <motion.button
+                    whileHover={{ scale: 1.03, boxShadow: `0 0 25px ${selectedProject.accent}44` }}
+                    whileTap={{ scale: 0.97 }}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs md:text-sm font-semibold text-white cursor-pointer"
+                    style={{
+                      background: `linear-gradient(135deg, ${selectedProject.accent}33, #0054ff33)`,
+                      border: `1px solid ${selectedProject.accent}66`,
+                    }}
+                  >
+                    <ExternalLink size={15} />
+                    <span>Explore Live Project</span>
+                  </motion.button>
+                )}
               </div>
             </motion.div>
           </AnimatePresence>
