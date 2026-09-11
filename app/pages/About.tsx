@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import AnimatedCounter from "../components/AnimatedCounter";
 
 const services = [
   {
@@ -31,9 +32,9 @@ const services = [
 ];
 
 const stats = [
-  { value: "3+", label: "Years Exp." },
-  { value: "20+", label: "Projects" },
-  { value: "12+", label: "Technologies" },
+  { value: 3, suffix: "+", label: "Years Exp." },
+  { value: 20, suffix: "+", label: "Projects" },
+  { value: 12, suffix: "+", label: "Technologies" },
 ];
 
 function useReveal(threshold = 0.15) {
@@ -166,7 +167,7 @@ export default function About() {
             whileHover={{ scale: 1.05, borderColor: "rgba(26,165,193,0.4)", boxShadow: "0 0 20px rgba(26,165,193,0.12)" }}
           >
             <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#1aa5c1] to-[#0054ff] bg-clip-text text-transparent">
-              {s.value}
+              <AnimatedCounter target={s.value} suffix={s.suffix} />
             </span>
             <span className="text-xs text-white/50 mt-1 tracking-wide">{s.label}</span>
           </motion.div>

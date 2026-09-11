@@ -40,7 +40,9 @@ body {
 #skills,
 #projects,
 #contact,
-#personal {
+#personal,
+#testimonials,
+#certifications {
   scroll-margin-top: 90px;
 }
 
@@ -70,4 +72,14 @@ textarea:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px #262525 inset !important;
   -webkit-text-fill-color: #fff !important;
   transition: background-color 9999s ease-in-out 0s;
+}
+
+/* ── Marquee animation ── */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
 }

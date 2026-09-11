@@ -13,11 +13,10 @@ const contactInfo = [
 ];
 
 const socials = [
-  { src: "/images/github.svg", alt: "GitHub", href: "#" },
-  { src: "/images/twitter.svg", alt: "Twitter", href: "#" },
-  { src: "/images/instagram.svg", alt: "Instagram", href: "#", rounded: true },
-  { src: "/images/linkedin.svg", alt: "LinkedIn", href: "#" },
-  { src: "/images/youtube.svg", alt: "YouTube", href: "#" },
+  { src: "/images/twitter.svg", alt: "Twitter", href: "https://x.com/abhinand756" },
+  { src: "/images/instagram.svg", alt: "Instagram", href: "https://www.instagram.com/_abhinand_756_/", rounded: true },
+  { src: "/images/linkedin.svg", alt: "LinkedIn", href: "https://www.linkedin.com/in/dev-abhi/" },
+  { src: "/images/youtube.svg", alt: "YouTube", href: "https://www.youtube.com/@dev_abhinand" },
 ];
 
 function FloatingField({
@@ -465,6 +464,8 @@ export default function Contact() {
           <div className="flex items-center gap-3 flex-wrap">
             {socials.map((s, i) => (
               <motion.a
+                target="_blank"
+                rel="noopener noreferrer"
                 key={s.alt}
                 href={s.href}
                 aria-label={s.alt}
