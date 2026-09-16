@@ -5,7 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { ExternalLink, Layers, ArrowLeft, Sparkles, Code2, CheckCircle2 } from "lucide-react";
+import { ExternalLink, Layers, ArrowLeft, Sparkles, Code2, CheckCircle2, Images, ZoomIn } from "lucide-react";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 interface ProjectItem {
   id: string;
@@ -13,6 +15,8 @@ interface ProjectItem {
   category: "personal" | "company";
   company?: string;
   src: string;
+  images: string[];
+  coverImage: string;
   desc: string;
   longDesc: string;
   tags: string[];
@@ -27,8 +31,10 @@ const allProjects: ProjectItem[] = [
     id: "pers-1",
     title: "E-Commerce Platform - HappyMart",
     category: "personal",
-    src: "/images/services1.jpg",
-    desc: "A full-featured e-commerce platform inspired by Flipkart with authentication, product management, shopping cart, wishlist, order management, and secure checkout.",
+    src: "/images/projects/happymart-1.png",
+    coverImage: "/images/projects/happymart-1.png",
+    images: ["/images/projects/happymart-1.png", "/images/projects/happymart-2.png", "/images/projects/happymart-3.png", "/images/projects/happymart-4.png"],
+    desc: "A full-featured e-commerce platform with authentication, product management, shopping cart, wishlist, order management, and secure checkout.",
     longDesc:
       "A modern full-stack e-commerce application built to replicate the experience of leading online marketplaces. The platform includes user authentication, product browsing, category filtering, shopping cart, wishlist, checkout flow, order tracking, admin product management, and responsive UI optimized for desktop and mobile devices.",
     tags: [
@@ -43,7 +49,8 @@ const allProjects: ProjectItem[] = [
       "JWT authentication with secure login & registration",
       "Dynamic product search, filtering, sorting & pagination",
       "Shopping cart, wishlist & seamless checkout experience",
-      "Order history and user profile management",
+      "Return Order, Order history and user profile management",
+      "Product return & review integration.",
       "Admin dashboard for products, categories & orders",
       "Responsive UI inspired by Flipkart with optimized performance"
     ],
@@ -55,16 +62,17 @@ const allProjects: ProjectItem[] = [
     title: "Real-Time Chat Application",
     category: "personal",
     src: "/images/services2.jpg",
-    desc: "A Telegram-inspired real-time messaging application supporting instant chat, online presence, media sharing, and responsive conversations.",
+    coverImage: "/images/services2.jpg",
+    images: ["/images/services2.jpg", "/images/website-dev.webp", "/images/services1.jpg", "/images/mobile-app.webp"],
+    desc: "A real-time messaging application supporting instant chat, online presence, media sharing, and responsive conversations.",
     longDesc:
-      "A modern real-time chat platform developed to deliver a smooth messaging experience similar to Telegram. The application features live messaging, user authentication, online/offline status indicators, media sharing, conversation management, and a responsive interface designed for desktop and mobile users.",
+      "A modern real-time chat platform developed to deliver a smooth messaging experience. The application features live messaging, user authentication, online/offline status indicators, media sharing, conversation management, and a responsive interface designed for desktop and mobile users.",
     tags: [
       "React.js",
       "Node.js",
       "Express.js",
       "MongoDB",
       "Socket.io",
-      "JWT",
       "Tailwind CSS"
     ],
     features: [
@@ -73,16 +81,18 @@ const allProjects: ProjectItem[] = [
       "User authentication with secure JWT sessions",
       "Online/offline presence indicators",
       "Image and file sharing support",
-      "Responsive Telegram-inspired user interface"
+      "Responsive user interface"
     ],
     accent: "#229ED9",
     link: "https://github.com/abhinand-ct205",
   },
   {
     id: "pers-3",
-    title: "Movie & Music Discovery Platform",
+    title: "Cineholic - Movie Discovery Platform",
     category: "personal",
-    src: "/images/services3.jpg",
+    src: "/images/projects/cineholic-1.png",
+    coverImage: "/images/projects/cineholic-1.png",
+    images: ["/images/projects/cineholic-1.png", "/images/projects/cineholic-2.png", "/images/projects/cineholic-3.png", "/images/projects/cineholic-4.png"],
     desc: "A modern entertainment platform for exploring trending movies, TV shows, and music with powerful search, filtering, and responsive browsing experience.",
     longDesc:
       "An entertainment discovery platform that allows users to browse popular movies, TV series, albums, artists, and trending content through a clean and intuitive interface. The application integrates external APIs to deliver real-time content, advanced filtering, detailed information pages, and an engaging browsing experience.",
@@ -91,11 +101,11 @@ const allProjects: ProjectItem[] = [
       "TypeScript",
       "Tailwind CSS",
       "TMDB API",
-      "Spotify API",
+      "MongoDB",
       "REST API"
     ],
     features: [
-      "Browse trending movies, TV shows & music",
+      "Browse trending movies, cast and artists.",
       "Advanced search with genre and category filtering",
       "Detailed information pages with ratings & metadata",
       "Responsive UI optimized for desktop, tablet & mobile",
@@ -103,7 +113,7 @@ const allProjects: ProjectItem[] = [
       "Modern card-based interface with smooth animations"
     ],
     accent: "#2874F0",
-    link: "https://github.com/abhinand-ct205",
+    link: "https://cineholic.vercel.app/",
   },
 
   // ── Company / Featured Projects ──
@@ -113,6 +123,8 @@ const allProjects: ProjectItem[] = [
     category: "company",
     company: "Featured Project",
     src: "/images/services2.jpg",
+    coverImage: "/images/services2.jpg",
+    images: ["/images/services2.jpg", "/images/website-dev.webp", "/images/services1.jpg", "/images/mobile-app.webp"],
     desc: "Developed a modern, responsive news platform for Mathrubhumi with dynamic content sections, intuitive navigation, and a seamless reading experience across devices.",
     longDesc: "Designed and developed a high-performance news web experience focused on delivering breaking news, articles, videos, and multimedia content through a clean and engaging interface. Implemented responsive layouts, reusable React components, optimized content rendering, and smooth interactions to provide a fast and accessible experience across desktop and mobile devices.",
     tags: [
@@ -139,6 +151,8 @@ const allProjects: ProjectItem[] = [
     category: "company",
     company: "Featured Project",
     src: "/images/services2.jpg",
+    coverImage: "/images/services2.jpg",
+    images: ["/images/services2.jpg", "/images/services3.jpg", "/images/mobile-app.webp", "/images/website-dev.webp"],
     desc: "Developed a modern digital magazine experience for Grihalakshmi, featuring engaging editorial content, intuitive navigation, rich media, and a responsive reading experience across devices.",
     longDesc: "Designed and developed a visually engaging digital platform for Grihalakshmi Weekly Magazine, focused on delivering articles, stories, lifestyle content, and multimedia in an elegant and accessible interface. Built reusable components and responsive layouts to ensure a consistent reading experience across desktop, tablet, and mobile devices while optimizing content presentation and performance.",
     tags: [
@@ -166,6 +180,8 @@ const allProjects: ProjectItem[] = [
     category: "company",
     company: "Featured Project",
     src: "/images/services2.jpg",
+    coverImage: "/images/services2.jpg",
+    images: ["/images/services2.jpg", "/images/mobile-app.webp", "/images/website-dev.webp", "/images/services1.jpg"],
     desc: "Worked as a Frontend developer in EdgeProp.my, a property platform for real-estate content.",
     longDesc: "Contributed to the development of EdgeProp.my, a comprehensive property and real-estate platform serving buyers, renters, investors, and property professionals across Malaysia. Built responsive and reusable interfaces for property discovery, listing experiences, project information, search and filtering, and data-driven content while maintaining a seamless experience across desktop and mobile devices.",
     tags: [
@@ -192,11 +208,24 @@ const allProjects: ProjectItem[] = [
 export default function ProjectsDetail() {
   const [activeTab, setActiveTab] = useState<"all" | "company" | "personal">("all");
   const [selectedProject, setSelectedProject] = useState<ProjectItem>(allProjects[0]);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const filteredProjects = allProjects.filter((p) => {
     if (activeTab === "all") return true;
     return p.category === activeTab;
   });
+
+  const openLightbox = (project: ProjectItem, index: number) => {
+    setSelectedProject(project);
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const lightboxSlides = selectedProject.images.map((src) => ({
+    src,
+    alt: selectedProject.title,
+  }));
 
   return (
     <div className="min-h-screen max-md:pt-20 py-16 md:py-24 px-4 max-w-6xl mx-auto flex flex-col items-center">
@@ -381,12 +410,15 @@ export default function ProjectsDetail() {
               <span className="absolute bottom-[8px] right-[8px] w-[6px] h-[6px] rounded-full bg-[#1aa5c1] opacity-70" />
 
               {/* Large Image Preview Banner */}
-              <div className="relative w-full h-[220px] md:h-[260px] rounded-2xl overflow-hidden mb-6">
+              <div
+                className="relative w-full h-[220px] md:h-[260px] rounded-2xl overflow-hidden mb-4 group cursor-pointer"
+                onClick={() => openLightbox(selectedProject, 0)}
+              >
                 <Image
-                  src={selectedProject.src}
+                  src={selectedProject.coverImage}
                   alt={selectedProject.title}
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a101c] via-transparent to-transparent" />
 
@@ -402,6 +434,59 @@ export default function ProjectsDetail() {
                     {selectedProject.category === "company" ? selectedProject.company : "Personal Portfolio"}
                   </span>
                 </div>
+
+                <div
+                  className="absolute bottom-4 right-4 flex items-center gap-2 text-xs font-semibold px-3.5 py-2 rounded-xl text-white backdrop-blur-md transition-all duration-300 group-hover:scale-105"
+                  style={{
+                    background: "rgba(6, 11, 20, 0.8)",
+                    border: `1px solid ${selectedProject.accent}55`,
+                    color: selectedProject.accent,
+                  }}
+                >
+                  <Images size={14} />
+                  View Gallery ({selectedProject.images.length})
+                </div>
+              </div>
+
+              {/* Image Gallery Grid */}
+              <div className="grid grid-cols-4 gap-2.5 mb-6">
+                {selectedProject.images.map((img, idx) => {
+                  const isCover = img === selectedProject.coverImage;
+                  return (
+                    <motion.button
+                      key={idx}
+                      onClick={() => openLightbox(selectedProject, idx)}
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.96 }}
+                      className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group"
+                      style={{
+                        border: isCover ? `2px solid ${selectedProject.accent}88` : "2px solid rgba(255,255,255,0.08)",
+                      }}
+                      title={isCover ? "Cover image" : `Image ${idx + 1}`}
+                    >
+                      <Image
+                        src={img}
+                        alt={`${selectedProject.title} - image ${idx + 1}`}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <ZoomIn size={18} className="text-white" />
+                      </div>
+                      {isCover && (
+                        <span
+                          className="absolute top-1.5 left-1.5 text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md"
+                          style={{
+                            background: selectedProject.accent,
+                            color: "#fff",
+                          }}
+                        >
+                          Cover
+                        </span>
+                      )}
+                    </motion.button>
+                  );
+                })}
               </div>
 
               {/* Title & Accent */}
@@ -493,6 +578,17 @@ export default function ProjectsDetail() {
           </AnimatePresence>
         </motion.div>
       </div>
+
+      {/* Lightbox */}
+      <Lightbox
+        open={lightboxOpen}
+        close={() => setLightboxOpen(false)}
+        index={lightboxIndex}
+        slides={lightboxSlides}
+        animation={{ fade: 300, swipe: 300 }}
+        carousel={{ finite: true }}
+        styles={{ container: { backgroundColor: "rgba(6, 11, 20, 0.96)" } }}
+      />
     </div>
   );
 }

@@ -21,7 +21,7 @@ const projects = [
     label: "App Projects",
     count: "5+",
     desc: "Cross-platform mobile applications with React Native & Flutter. Smooth UX with native-level performance.",
-    tags: ["React Native", "Flutter", "Firebase"],
+    tags: ["React Native", "Flutter"],
     accent: "#497fed",
   },
 ];
