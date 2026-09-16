@@ -49,7 +49,7 @@ const certifications = [
     title: "Flutter Developer Certification",
     issuer: "Udemy",
     date: "2023",
-    skills: ["Flutter", "Dart", "Firebase", "Mobile UI"],
+    skills: ["Flutter", "Dart", "Mobile UI"],
     color: "#497fed",
     credentialUrl: "#",
   },
