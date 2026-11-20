@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "./components/CustomCursor";
+import Chatbot from "./components/chatbot/Chatbot";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
 
@@ -37,6 +38,7 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
         {children}
+        <Chatbot />
       </body>
     </html>
   );

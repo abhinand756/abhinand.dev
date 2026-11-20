@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   ArrowUpRight,
   Code2,
@@ -10,6 +10,7 @@ import {
   Home,
   Mail,
   Menu,
+  Sparkles,
   UserRound,
   X,
 } from "lucide-react";
@@ -41,6 +42,7 @@ export default function Header({ hideNav = false }: HeaderProps) {
   const [activeSection, setActiveSection] = useState("hero");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hireOpen, setHireOpen] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => {
@@ -127,24 +129,28 @@ export default function Header({ hideNav = false }: HeaderProps) {
               e.preventDefault();
               setHireOpen(true);
             }}
-            className="m-1.5 px-5 py-2 rounded-[10px] text-sm text-[#c6fafa] font-medium transition-all duration-300 ease-in-out hover:scale-[1.04] no-underline"
+            whileHover={reduceMotion ? undefined : { scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.96 }}
+            className="group relative m-1.5 inline-flex items-center gap-2 overflow-hidden rounded-xl px-5 py-2.5 text-sm font-semibold text-white no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7dd6f6]/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             style={{
               fontFamily: "'LXGW WenKai TC', cursive",
-              background: "rgba(26,165,193,0.07)",
-              border: "1px solid rgba(26,165,193,0.45)",
-              boxShadow: "0 0 10px rgba(26,165,193,0.1)",
+              background: "linear-gradient(135deg, #1aa5c1, #0054ff)",
+              boxShadow: "0 8px 24px rgba(26,165,193,0.4), inset 0 1px 0 rgba(255,255,255,0.25)",
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.border = "1px solid rgba(0,84,255,0.7)";
-              e.currentTarget.style.boxShadow = "0 0 16px rgba(0,84,255,0.25)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.border = "1px solid rgba(26,165,193,0.45)";
-              e.currentTarget.style.boxShadow = "0 0 10px rgba(26,165,193,0.1)";
-            }}
-            whileTap={{ scale: 0.95 }}
           >
-            Hire Me
+            {!reduceMotion && (
+              <motion.span
+                className="pointer-events-none absolute inset-y-0 w-12 bg-gradient-to-r from-transparent via-white/35 to-transparent"
+                animate={{ x: [-80, 240], skewX: -12 }}
+                transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.6 }}
+              />
+            )}
+            <Sparkles
+              size={15}
+              strokeWidth={2.4}
+              className="relative transition-transform duration-300 group-hover:rotate-12"
+            />
+            <span className="relative">Hire Me</span>
           </motion.a>
         </nav>
 
@@ -419,28 +425,26 @@ export default function Header({ hideNav = false }: HeaderProps) {
                       setMobileOpen(false);
                       setHireOpen(true);
                     }}
-                    className="relative block text-center py-3.5 rounded-xl text-[#c6fafa] font-bold tracking-[0.2em] text-[15px] overflow-hidden no-underline"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-xl py-3.5 text-[15px] font-bold tracking-[0.2em] text-white no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7dd6f6]/80"
                     style={{
                       fontFamily: "'LXGW WenKai TC', cursive",
-                      background: "rgba(26,165,193,0.07)",
-                      border: "1px solid rgba(26,165,193,0.45)",
-                      boxShadow: "0 0 14px rgba(26,165,193,0.12)",
-                    }}
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.96 }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.border = "1px solid rgba(0,84,255,0.7)";
-                      e.currentTarget.style.boxShadow = "0 0 20px rgba(0,84,255,0.28)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.border = "1px solid rgba(26,165,193,0.45)";
-                      e.currentTarget.style.boxShadow = "0 0 14px rgba(26,165,193,0.12)";
+                      background: "linear-gradient(135deg, #1aa5c1, #0054ff)",
+                      boxShadow: "0 10px 28px rgba(26,165,193,0.4), inset 0 1px 0 rgba(255,255,255,0.25)",
                     }}
                   >
-                    <motion.span
-                      className="absolute inset-y-0 left-0 w-16 -skew-x-12 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-                      animate={{ x: ["-120%", "620%"] }}
-                      transition={{ duration: 2.4, repeat: Infinity, ease: "linear", repeatDelay: 1.4 }}
+                    {!reduceMotion && (
+                      <motion.span
+                        className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-transparent via-white/25 to-transparent"
+                        animate={{ x: [-120, 620], skewX: -12 }}
+                        transition={{ duration: 2.4, repeat: Infinity, ease: "linear", repeatDelay: 1.4 }}
+                      />
+                    )}
+                    <Sparkles
+                      size={16}
+                      strokeWidth={2.4}
+                      className="relative transition-transform duration-300 group-hover:rotate-12"
                     />
                     <span className="relative">Hire Me</span>
                   </motion.a>

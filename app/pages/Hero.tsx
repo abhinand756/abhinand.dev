@@ -3,8 +3,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Download, Info } from "lucide-react";
 
 const roles = [
   "Full Stack Developer",
@@ -67,6 +68,7 @@ const fadeUp = (delay = 0) => ({
 export default function Hero() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
+  const reduceMotion = useReducedMotion();
   const { displayed: typed, wordKey } = useTypewriter(roles, 75, 40, 1800, ready);
 
   useEffect(() => {
@@ -306,46 +308,59 @@ export default function Hero() {
         animate={ready ? "visible" : "hidden"}
         className="flex flex-wrap justify-center gap-1"
       >
-        <Link href="#about">
-          <button
-            className="m-1.5 px-5 py-2 rounded-[10px] border border-[#1aa5c173] text-sm text-[#c6fafa] transition-all duration-300 ease-in-out hover:scale-[1.04]"
-            style={{
-             fontFamily: "'LXGW WenKai TC', cursive",
-              background: "rgba(26,165,193,0.07)",
-              border: "1px solid rgba(26,165,193,0.45)",
-              boxShadow: "0 0 10px rgba(26,165,193,0.1)",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(0,84,255,0.7)";
-              (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 0 16px rgba(0,84,255,0.25)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(26,165,193,0.45)";
-              (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 0 10px rgba(26,165,193,0.1)";
-            }}
-          >
-            More info
-          </button>
-        </Link>
-        <button
-          className="m-1.5 px-5 py-2 rounded-[10px] border border-[#1aa5c173] text-sm text-[#c6fafa] transition-all duration-300 ease-in-out hover:scale-[1.04]"
+        <Link
+          href="#about"
+          className="group relative m-1.5 inline-flex items-center gap-2 overflow-hidden rounded-xl px-5 py-2.5 text-sm font-semibold text-[#c6fafa] no-underline transition-all duration-300 hover:-translate-y-0.5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1aa5c1]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           style={{
-             fontFamily: "'LXGW WenKai TC', cursive",
-            background: "rgba(26,165,193,0.07)",
+            fontFamily: "'LXGW WenKai TC', cursive",
+            background: "linear-gradient(135deg, rgba(26,165,193,0.12), rgba(0,84,255,0.08))",
             border: "1px solid rgba(26,165,193,0.45)",
-            boxShadow: "0 0 10px rgba(26,165,193,0.1)",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(0,84,255,0.7)";
-            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 0 16px rgba(0,84,255,0.25)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(26,165,193,0.45)";
-            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 0 10px rgba(26,165,193,0.1)";
+            boxShadow: "0 0 12px rgba(26,165,193,0.12), inset 0 1px 0 rgba(255,255,255,0.06)",
           }}
         >
-          Download CV
-        </button>
+          <span
+            className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#1aa5c1]/25 to-[#0054ff]/25 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            aria-hidden
+          />
+          <Info
+            size={15}
+            strokeWidth={2.2}
+            className="relative transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110"
+          />
+          <span className="relative">More info</span>
+          <ArrowRight
+            size={14}
+            strokeWidth={2.4}
+          />
+        </Link>
+
+        {/* Download CV — gradient primary */}
+        <motion.a
+          href="/cv.pdf"
+          download
+          whileHover={reduceMotion ? undefined : { scale: 1.05, y: -2 }}
+          whileTap={{ scale: 0.96 }}
+          className="group relative m-1.5 inline-flex items-center gap-2 overflow-hidden rounded-xl px-5 py-2.5 text-sm font-semibold text-white no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7dd6f6]/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+          style={{
+            fontFamily: "'LXGW WenKai TC', cursive",
+            background: "linear-gradient(135deg, #1aa5c1, #0054ff)",
+            boxShadow: "0 8px 24px rgba(26,165,193,0.4), inset 0 1px 0 rgba(255,255,255,0.25)",
+          }}
+        >
+          {!reduceMotion && (
+            <motion.span
+              className="pointer-events-none absolute inset-y-0 w-12 bg-gradient-to-r from-transparent via-white/35 to-transparent"
+              animate={{ x: [-80, 240], skewX: -12 }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.6 }}
+            />
+          )}
+          <Download
+            size={15}
+            strokeWidth={2.4}
+            className="relative transition-transform duration-300 group-hover:translate-y-0.5"
+          />
+          <span className="relative">Download CV</span>
+        </motion.a>
       </motion.div>
     </div>
   );
