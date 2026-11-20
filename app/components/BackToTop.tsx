@@ -24,7 +24,7 @@ export default function BackToTop() {
           whileTap={{ scale: 0.9 }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-8 right-8 z-[999] w-12 h-12 rounded-full flex items-center justify-center cursor-pointer"
+          className="fixed bottom-8 left-8 z-[999] w-12 h-12 rounded-full flex items-center justify-center cursor-pointer"
           style={{
             background: "linear-gradient(135deg, rgba(26,165,193,0.2), rgba(0,84,255,0.2))",
             border: "1px solid rgba(26,165,193,0.4)",
